@@ -1,0 +1,228 @@
+:root{
+  --bg:#0b1120; --bg2:#0f172a; --line:#1e293b; --line2:#334155;
+  --muted:#94a3b8; --text:#e2e8f0; --accent:#38bdf8;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--text); display:flex; flex-direction:column;
+  height:100vh; overflow:hidden;
+}
+
+/* ---------- header ---------- */
+header{
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  padding:10px 16px; border-bottom:1px solid var(--line); background:var(--bg2);
+  z-index:5;
+}
+.brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.3px}
+.brand .logo{
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#0ea5e9,#6366f1); font-size:15px;
+}
+.brand small{display:block;font-weight:500;font-size:11px;color:var(--muted);letter-spacing:0}
+.stats{display:flex; gap:8px; flex-wrap:wrap; margin-left:auto}
+.stat{
+  background:#0d1830; border:1px solid var(--line); border-radius:10px;
+  padding:5px 10px; font-size:11px; color:var(--muted); line-height:1.3;
+}
+.stat b{display:block; font-size:14px; color:var(--text)}
+.actions{display:flex; gap:8px; flex-wrap:wrap; width:100%}
+@media(min-width:900px){ .actions{width:auto} }
+
+.btn{
+  display:inline-flex; align-items:center; gap:6px; padding:8px 12px; border-radius:10px;
+  border:1px solid var(--line); background:#111c33; color:var(--text);
+  font:600 13px/1 inherit; cursor:pointer; transition:.15s; white-space:nowrap;
+}
+.btn:hover{background:#16233d; border-color:var(--line2)}
+.btn.primary{background:linear-gradient(135deg,#0ea5e9,#6366f1); border:0; color:#fff}
+.btn.primary:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent}
+
+/* ---------- layout ---------- */
+.app{flex:1; display:flex; min-height:0}
+.panel{
+  width:380px; flex:none; display:flex; flex-direction:column;
+  border-right:1px solid var(--line); background:var(--bg); min-height:0;
+}
+.panel-head{padding:12px; border-bottom:1px solid var(--line); display:grid; gap:10px}
+.search{
+  width:100%; padding:9px 12px; border-radius:10px; border:1px solid var(--line);
+  background:#0d1830; color:var(--text); font:500 13px inherit; outline:none;
+}
+.search:focus{border-color:var(--accent)}
+.chips{display:flex; flex-wrap:wrap; gap:6px}
+.chip{
+  display:inline-flex; align-items:center; gap:6px; padding:4px 9px; border-radius:999px;
+  border:1px solid var(--line); background:#0d1830; color:var(--muted);
+  font:600 11px inherit; cursor:pointer; opacity:.45; transition:.15s;
+}
+.chip.on{opacity:1; color:var(--text); border-color:var(--line2)}
+.chip i{width:8px; height:8px; border-radius:50%; display:block}
+
+.list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  -webkit-overflow-scrolling: touch;
+}
+
+.list::-webkit-scrollbar {width: 8px;}
+.list::-webkit-scrollbar-track {background: var(--bg);}
+.list::-webkit-scrollbar-thumb {background: #334155; border-radius: 9px;}
+.list::-webkit-scrollbar-thumb:hover {background: #475569;}
+
+.lead{
+  border:1px solid var(--line); border-radius:12px; padding:10px 11px;
+  background:#0d1830; cursor:pointer; transition:.15s; display:grid; gap:7px;
+  min-width: 0; 
+  max-width: 100%; 
+}
+.lead:hover{border-color:var(--line2); background:#111e38}
+.lead.sel{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset}
+.lead-top{display:flex; align-items:center; gap:7px; min-width: 0; width: 100%;}
+.dot{width:9px;height:9px;border-radius:50%;flex:none;box-shadow:0 0 0 3px rgba(255,255,255,.06)}
+.lead-top strong{
+  font-size:13px; 
+  font-weight:700; 
+  overflow:hidden; 
+  text-overflow:ellipsis; 
+  white-space:nowrap;
+  flex: 1;
+  min-width: 0;
+}
+.dist{margin-left:auto; font-size:11px; color:var(--muted); flex:none; padding-left: 8px;}
+.lead-sub{font-size:11.5px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.bar{height:5px; border-radius:99px; background:#1b2942; overflow:hidden}
+.bar > i{display:block; height:100%; border-radius:99px; transition:width .3s}
+.lead-foot{display:flex; align-items:center; gap:8px}
+.mini{
+  font:600 11px inherit; padding:4px 7px; border-radius:7px; border:1px solid var(--line2);
+  background:#111c33; color:var(--text); cursor:pointer; outline:none;
+}
+.pct{font-size:11px; color:var(--muted); margin-left:auto}
+
+.empty{padding:26px 14px; text-align:center; color:var(--muted); font-size:13px; line-height:1.7}
+.empty b{color:var(--text)}
+
+.map-wrap{flex:1; position:relative; min-width:0}
+#map{position:absolute; inset:0; background:#e5e7eb}
+.map-wrap.adding #map{cursor:crosshair}
+.hint{
+  position:absolute; left:50%; top:14px; transform:translateX(-50%); z-index:800;
+  background:#0f172a; color:#fff; padding:8px 14px; border-radius:10px;
+  font-size:12.5px; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,.35);
+  pointer-events:none; opacity:0; transition:.2s; white-space:nowrap;
+}
+.hint.show{opacity:1}
+
+/* ---------- map pins ---------- */
+.pin{
+  display:block; width:20px; height:20px; border-radius:50% 50% 50% 0;
+  transform:rotate(-45deg); background:var(--c); border:2px solid #fff;
+  box-shadow:0 3px 8px rgba(0,0,0,.4);
+}
+.pin.me{background:#0ea5e9; border-radius:50%; transform:none; box-shadow:0 0 0 6px rgba(14,165,233,.25)}
+
+/* ---------- popup ---------- */
+.leaflet-popup-content-wrapper{border-radius:12px; padding:2px}
+.leaflet-popup-content{margin:10px 12px; font:13px/1.5 inherit; min-width:190px}
+.pop{color:#0f172a; display:grid; gap:7px}
+.pop-h{display:flex; align-items:center; gap:7px; font-size:14px}
+.pop-sub{color:#64748b; font-size:11.5px}
+.pop-status{
+  justify-self:start; font-size:10.5px; font-weight:800; letter-spacing:.4px; text-transform:uppercase;
+  color:var(--c); background:color-mix(in srgb, var(--c) 14%, transparent);
+  padding:3px 8px; border-radius:999px;
+}
+.pop .bar{background:#e2e8f0}
+.pop-actions{display:flex; gap:6px; flex-wrap:wrap; margin-top:2px}
+.pop-actions button, .pop-actions a{
+  font:700 11.5px inherit; padding:6px 9px; border-radius:8px; cursor:pointer; text-decoration:none;
+  border:1px solid #cbd5e1; background:#f1f5f9; color:#0f172a;
+}
+.pop-actions button:hover, .pop-actions a:hover{background:#e2e8f0}
+
+/* ---------- modal ---------- */
+.modal{
+  position:fixed; inset:0; z-index:2000; display:none; place-items:center;
+  background:rgba(3,7,18,.72); backdrop-filter:blur(3px); padding:16px;
+}
+.modal.open{display:grid}
+.sheet{
+  width:100%; max-width:520px; max-height:92vh; overflow-y:auto;
+  background:var(--bg2); border:1px solid var(--line2); border-radius:16px;
+  box-shadow:0 30px 80px rgba(0,0,0,.6); padding:18px;
+}
+.sheet h2{margin:0 0 14px; font-size:16px}
+.grid2{display:grid; gap:10px; grid-template-columns:1fr 1fr}
+@media(max-width:520px){ .grid2{grid-template-columns:1fr} }
+.field{display:grid; gap:5px}
+.field label{font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.5px}
+.field input, .field select, .field textarea{
+  width:100%; padding:9px 11px; border-radius:9px; border:1px solid var(--line);
+  background:#0d1830; color:var(--text); font:500 13px inherit; outline:none;
+}
+.field input:focus, .field select:focus, .field textarea:focus{border-color:var(--accent)}
+.field textarea{resize:vertical; min-height:64px}
+.sheet-foot{display:flex; gap:8px; margin-top:16px; flex-wrap:wrap}
+.sheet-foot .right{margin-left:auto; display:flex; gap:8px}
+.danger{color:#fca5a5; border-color:#7f1d1d; background:#2a1116}
+
+.toast{
+  position:fixed; bottom:20px; left:50%; transform:translate(-50%,20px); z-index:3000;
+  background:#0f172a; border:1px solid var(--line2); color:#fff; padding:11px 18px;
+  border-radius:12px; font-size:13px; font-weight:600; opacity:0; pointer-events:none;
+  transition:.25s; box-shadow:0 12px 34px rgba(0,0,0,.5); max-width:90vw; text-align: center;
+}
+.toast.show{opacity:1; transform:translate(-50%,0)}
+
+/* =========================================================
+   MOBILE RESPONSIVENESS
+   ========================================================= */
+@media(max-width:860px){
+  /* Stack layout vertically */
+  .app{flex-direction:column}
+  
+  /* 1. PUT MAP ON TOP */
+  .map-wrap{
+    order: -1; /* This forces the map above the list */
+    height: 40vh; 
+    flex:none;
+    border-bottom: 1px solid var(--line);
+    border-right: 0;
+  }
+  
+  /* 2. PANEL & LIST SCROLLING */
+  .panel{
+    width:100%; 
+    flex:1; 
+    min-height: 0; /* Crucial: allows the list to scroll properly */
+    border-right:0; 
+  }
+
+  /* Hide stats to save space */
+  .stats{display:none}
+  
+  /* 3. BUTTONS WRAP NICELY */
+  .actions{
+    flex-wrap: wrap; /* Let buttons drop to the next line instead of cutting off */
+    width: 100%;
+    gap: 6px;
+  }
+  
+  .btn{
+    padding: 6px 10px; 
+    font-size: 12px;
+    flex: 1 1 auto; /* Makes buttons stretch to fill the row evenly */
+    justify-content: center;
+  }
+  
+  /* Adjust modal padding for small screens */
+  .sheet { padding: 15px; max-height: 95vh; }
+}

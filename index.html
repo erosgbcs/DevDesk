@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DevDesk — Freelance Lead Map</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <!-- Local CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <span class="logo">◆</span>
+      <span>DevDesk<small>Freelance lead map</small></span>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="actions">
+      <button class="btn" id="btnLocate">📍 My location</button>
+      <button class="btn" id="btnDiscover">🔎 Discover nearby</button>
+      <button class="btn primary" id="btnAdd">➕ Add business</button>
+      <button class="btn ghost" id="btnExport">⬇ Export</button>
+      <button class="btn ghost" id="btnImport">⬆ Import</button>
+    </div>
+  </header>
+
+  <div class="app">
+    <aside class="panel">
+      <div class="panel-head">
+        <input class="search" id="search" placeholder="Search name, category or address…" />
+        <div class="chips" id="chips"></div>
+      </div>
+      <div class="list" id="list"></div>
+    </aside>
+
+    <div class="map-wrap" id="mapWrap">
+      <div id="map"></div>
+      <div class="hint" id="hint">Click on the map to place the business</div>
+    </div>
+  </div>
+
+  <!-- ============ EDIT / ADD MODAL ============ -->
+  <div class="modal" id="modal">
+    <div class="sheet">
+      <h2 id="modalTitle">Add business</h2>
+      <form id="form" class="grid2" autocomplete="off">
+        <input type="hidden" id="f-id" />
+        <input type="hidden" id="f-lat" />
+        <input type="hidden" id="f-lng" />
+
+        <div class="field" style="grid-column:1/-1">
+          <label for="f-name">Business name *</label>
+          <input id="f-name" required placeholder="e.g. Bluebird Coffee" />
+        </div>
+        <div class="field">
+          <label for="f-cat">Category</label>
+          <input id="f-cat" placeholder="Café, dentist, agency…" />
+        </div>
+        <div class="field">
+          <label for="f-phone">Phone</label>
+          <input id="f-phone" placeholder="+1 555 0100" />
+        </div>
+        <div class="field" style="grid-column:1/-1">
+          <label for="f-addr">Address</label>
+          <input id="f-addr" placeholder="Street, number, city" />
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" type="email" placeholder="hello@business.com" />
+        </div>
+        <div class="field">
+          <label for="f-site">Website</label>
+          <input id="f-site" placeholder="https://…" />
+        </div>
+        <div class="field">
+          <label for="f-status">Pipeline status</label>
+          <select id="f-status"></select>
+        </div>
+        <div class="field">
+          <label for="f-value">Deal value ($)</label>
+          <input id="f-value" type="number" min="0" step="50" placeholder="1500" />
+        </div>
+        <div class="field" style="grid-column:1/-1">
+          <label for="f-progress">Progress — <span id="progLabel">0%</span></label>
+          <input id="f-progress" type="range" min="0" max="100" step="5" value="0" />
+        </div>
+        <div class="field" style="grid-column:1/-1">
+          <label for="f-notes">Notes</label>
+          <textarea id="f-notes" placeholder="What did you discuss? Next step?"></textarea>
+        </div>
+
+        <div class="sheet-foot" style="grid-column:1/-1">
+          <button type="button" class="btn danger" id="btnDelete">Delete</button>
+          <div class="right">
+            <button type="button" class="btn" id="btnCancel">Cancel</button>
+            <button type="submit" class="btn primary">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- Local JS -->
+  <script src="script.js" defer></script>
+</body>
+</html>
