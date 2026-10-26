@@ -419,12 +419,37 @@ async function discover() {
 out body 120;`;
 
   try {
-    const res = await fetch('https://overpass-api.de/api/interpreter', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: 'data=' + encodeURIComponent(query)
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    // List of Overpass API servers to try
+    const servers = [
+      'https://overpass-api.de/api/interpreter',
+      'https://lz4.overpass-api.de/api/interpreter',
+      'https://overpass.kumi.systems/api/interpreter',
+      'https://overpass.private.coffee/api/interpreter'
+    ];
+
+    let res = null;
+    let success = false;
+
+    // Loop through servers until one works
+    for (const url of servers) {
+      try {
+        res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'data=' + encodeURIComponent(query)
+        });
+        
+        if (res.ok) {
+          success = true;
+          break; // Success! Break out of the loop.
+        }
+      } catch (err) {
+        console.warn(`Server ${url} failed, trying next...`);
+      }
+    }
+
+    if (!success) throw new Error('All Overpass servers are currently busy.');
+    
     const data = await res.json();
 
     const existingOsm = new Set(state.leads.map(l => l.osmId).filter(Boolean));
